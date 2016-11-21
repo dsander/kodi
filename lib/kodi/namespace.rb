@@ -10,7 +10,7 @@ module Kodi
 
     def method_missing(method_name, *arguments, &block)
       if method = find_method(method_name)
-        RPC.new(uri).dispatch(name + '.' + method, *arguments)
+        RPC.new(uri).dispatch(name + '.' + method.name, *arguments)
       else
         super
       end
@@ -19,7 +19,7 @@ module Kodi
     private
 
     def find_method(name)
-      @methods.find { |m| m == name.to_s.camelize }
+      @methods.find { |m| m.name == name.to_s.camelize }
     end
   end
 end
