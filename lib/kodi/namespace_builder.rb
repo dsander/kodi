@@ -13,6 +13,7 @@ module Kodi
     #                               If left empty, the complete API will be requested from the server. This will cost an
     #                               extra second or two, but ensures that you have all methods available.
     def build_namespaces(method_groups = nil)
+      method_groups = to_structs(method_groups) if method_groups
       namespaces = (method_groups || api_method_groups).map do |name, methods|
         Namespace.new(uri, name, *methods)
       end
@@ -21,6 +22,12 @@ module Kodi
     end
 
     private
+
+    def to_structs(method_groups)
+      Hash[method_groups.map do |namespace, methods|
+        [namespace, methods.map { |method| Struct.new(:namespace, :name).new(namespace, method) }]
+      end]
+    end
 
     def api_method_groups
       api_methods.group_by(&:namespace)
