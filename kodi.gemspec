@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 require 'kodi/version'
 
 Gem::Specification.new do |spec|
-  spec.name          = "kodi"
+  spec.name          = "dsander-kodi"
   spec.version       = Kodi::VERSION
   spec.authors       = ["Howard Wilson"]
   spec.email         = ["howard@watsonbox.net"]
